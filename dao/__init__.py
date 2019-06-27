@@ -3,11 +3,11 @@ from pymysql.cursors import DictCursor
 
 
 DB_CONFIG = {
-    'host': '10.35.162.134',
+    'host': '121.199.63.71',
     'port': 3306,
-    'user': 'root',
-    'password': '710043oooo',
-    'db': 'navmore',
+    'user': 'mtadmin',
+    'password': 'mt9900',
+    'db': 'mt_api_db',
     'charset': 'utf8'
 }
 
