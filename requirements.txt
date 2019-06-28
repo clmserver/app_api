@@ -10,3 +10,4 @@ redis==2.6.1
 six==1.12.0
 Werkzeug==0.15.4
 pypinyin
+aliyun-python-sdk-core
