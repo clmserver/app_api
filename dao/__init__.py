@@ -30,16 +30,15 @@ class DB:
         else:
             self.conn.rollback()
 
-        # return True  # 异常不会继续向外抛出
+        return True  # 异常不会继续向外抛出
 
 
 class BaseDao():
     def __init__(self):
         self.db = DB()
 
+    # 保存数据
     def save(self, table_name, **values):
-        # insert or update
-        # values['id'] 如果ID值是存在的，则是更新, 反之是插入
         sql = 'insert into %s(%s) values(%s)' % \
               (table_name,
                ','.join(values.keys()),
@@ -47,29 +46,56 @@ class BaseDao():
                )
         success = False
         with self.db as c:
+            print(sql)
             c.execute(sql,args=values)
+            print(sql)
             success = True
-
         return success
 
-    def delete(self, talbe_name, by_id):
-        pass
+    # 查询数据
+    def list(self,table_name,*fileds, where=None,args=None,page=1,page_size=20):
+        if not fileds:
+            fileds = '*'
+        sql = "select {} from {} where {}={} limit {},{}".format\
+            (','.join(*fileds),table_name,where,args,(page-1)*page_size,page_size)
+        print(sql)
+        with self.db as c:
+            c.execute(sql)
+            result = c.fetchone()
+            return result
 
-    def list(self, table_name,
-             *fields, where=None, args=None,
-             page=1, page_size=20):
-        pass
+    # 更新数据
+    def update(self,table_name,key,value,where=None,args=None):
+        sql = "update {} set {}='{}' where {}='{}'".format(table_name,key,value,where,args)
+        print(sql)
+        succuss = False
+        with self.db as c:
+            c.execute(sql)
+            succuss = True
+        return succuss
 
-    def count(self, table_name):
-        pass
+    # 删除数据
+    def delete(self, table_name,id):
+        sql = "delete from {} where id={}".format(table_name,id)
+        success = False
+        with self.db as c:
+            c.execute(sql)
+            success = True
+        return success
 
     def query(self, sql, *args):
+        data = None
         with self.db as c:
             c.execute(sql, args=args)
             data = c.fetchall()
             if data:
                 data = list(data)
         return data
+
+    def count(self, table_name):
+        pass
+
+
+
 if __name__ == '__main__':
     conn = pymysql.Connect(**DB_CONFIG)
-    print('连接成功')
