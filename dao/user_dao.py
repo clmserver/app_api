@@ -41,6 +41,7 @@ class UserDao(BaseDao):
     def del_userinfo(self,id):
         return super(UserDao,self).delete('users',id)
 
+<<<<<<< HEAD
     def get_wallet(self,user_id):    # lb
         # 获取银行卡信息
         sql = "select * from bank_card where card_user_id=%s"
@@ -61,6 +62,8 @@ class UserDao(BaseDao):
         sql_burse = "update users set u_burse_balance=%s where id=%s"
         self.query(sql_burse,burse_balance,user_id)
 
+=======
+>>>>>>> origin/navmore
 if __name__ == '__main__':
     dao = UserDao()
     print(dao.set_userinfo('u_username','KMP18309182914','xx','xxxx'))
