@@ -1,4 +1,4 @@
-Click==7.0
+pipClick==7.0
 Flask==1.0.3
 flask-blueprint==1.2.7
 Flask-Cors==3.0.8
@@ -10,3 +10,4 @@ redis==2.6.1
 six==1.12.0
 Werkzeug==0.15.4
 pypinyin
+aliyun-python-sdk-core

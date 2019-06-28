@@ -64,6 +64,16 @@ class BaseDao():
             result = c.fetchone()
             return result
 
+    def (self,table_name,*fileds, where=None,args=None,page=1,page_size=20):
+        if not fileds:
+            fileds = '*'
+        sql = "select {} from {} where {}={} limit {},{}".format\
+            (','.join(*fileds),table_name,where,args,(page-1)*page_size,page_size)
+        print(sql)
+        with self.db as c:
+            c.execute(sql)
+            result = c.fetchone()
+            return result
     # 更新数据
     def update(self,table_name,key,value,where=None,args=None):
         sql = "update {} set {}='{}' where {}='{}'".format(table_name,key,value,where,args)

@@ -26,10 +26,10 @@ def main_view():
         }
         return jsonify(result)
     else:
-        return {
+        return jsonify({
             "code": 203,
             "msg": "请求参数错误"
-        }
+        })
 
 
 @main_blue.route('/api/search/', methods=("POST",))
