@@ -48,7 +48,7 @@ class BaseDao():
         with self.db as c:
             print(sql)
             c.execute(sql,args=values)
-            print(sql)
+
             success = True
         return success
 
