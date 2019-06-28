@@ -11,7 +11,6 @@ DB_CONFIG = {
     'charset': 'utf8'
 }
 
-
 class DB:
     def __init__(self):
         self.conn = pymysql.Connect(**DB_CONFIG)
