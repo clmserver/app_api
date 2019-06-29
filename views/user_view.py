@@ -15,26 +15,24 @@ blue = Blueprint('user_api', __name__)
 # 请求验证码
 @blue.route('/user/check_code/',methods=['GET'])
 def check_code():
-	phone = request.args.get('phone')       #获取手机号
-	if phone:
-		res = eval(send_msg(phone))    #发送验证码
-		print(type(res))
-		if res['Code'] == 'OK':
-			return jsonify({'code':200,'msg':'验证码发送成功'})
-		else:
-			return jsonify({'code':207,'msg':'手机号错误请填写正确的手机号'})
-    return jsonify({'code':207,'msg':'请填写正确的手机号'})
-
-
+    phone = request.args.get('phone')       #获取手机号
+    if phone:
+        res = eval(send_msg(phone))  # 发送验证码
+        print(type(res))
+        if res['Code'] == 'OK':
+            return jsonify({'code': 200, 'msg': '验证码发送成功'})
+        else:
+            return jsonify({'code': 207, 'msg': '手机号错误请填写正确的手机号'})
+    return jsonify({'code': 207, 'msg': '请填写正确的手机号'})
 # 验证码登录
 @blue.route('/user/code_login/', methods=['POST'])
 def user_regist():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         phone = r_data['phone']
+        print(phone)
         code = r_data['code']
         #判断接受的数据是否为空
-        print(phone)
         if all((phone,code)):
             res = check_sms(phone,code)
             if not res:
@@ -67,7 +65,7 @@ def user_regist():
 # 密码登录
 @blue.route('/user/pwd_login/',methods=['POST'])
 def code_login():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         phone = r_data['phone']
         pwd = r_data['pwd']
@@ -95,7 +93,7 @@ def code_login():
 # 忘记密码
 @blue.route('/user/forget_password/',methods=['POST'])
 def forget_password():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         phone = r_data['phone']       #获取手机号
         if phone:
@@ -113,7 +111,7 @@ def forget_password():
 # 忘记密码之后初始化生成密码并返回
 @blue.route('/user/find_password/',methods=['POST'])
 def find_password():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         phone = r_data['phone']
         code = r_data['code']
@@ -140,7 +138,7 @@ def find_password():
 #  修改用户名
 @blue.route('/user/change_username/', methods=('POST',))
 def change_user():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         user_id = r_data['user_id']
         user_name = r_data['user_name']
@@ -156,7 +154,7 @@ def change_user():
 # 修改用户密码
 @blue.route('/user/change_password/', methods=('POST',))
 def change_password():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         user_id = r_data['user_id']
         u_password = r_data['U_password']
@@ -169,7 +167,7 @@ def change_password():
 # 更改手机号
 @blue.route('/user/change_tel/',methods=['POST'])
 def change_tel():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         user_id = r_data['user_id']
         phone = r_data['phone']
@@ -182,7 +180,7 @@ def change_tel():
 # 注销账户
 @blue.route('/user/kill_id/',methods=['POST'])
 def kill_id():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     user_id = r_data['user_id']
     if UserDao().del_userinfo(user_id):
         return jsonify({'code':200,'msg':'账户注销成功'})
@@ -190,7 +188,7 @@ def kill_id():
 # 退出当前用户
 @blue.route('/user/logout/',methods=['POST'])
 def logout():
-    r_data = request.get_json()
+    r_data = eval(request.get_data())
     if r_data:
         token = r_data['token']
         user_id = get_token_user_id(token)
@@ -201,8 +199,8 @@ def logout():
 # 切换到我的模块
 @blue.route('/user/',methods=['GET'])
 def user():
-	token = request.args.get('token')
-	if token:
+    token = request.args.get('token')
+    if token:
         if check_token(token):
             user_id = get_token_user_id(token)
             print(user_id)

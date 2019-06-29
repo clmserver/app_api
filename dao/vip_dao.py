@@ -20,8 +20,7 @@ class VipDao(BaseDao):
 
     def get_username(self, user_id):
         # 获取用户的姓名
-        sql = "select u_username from users " \
-              "where id=%s"
+        sql = "select u_username from users where id=%s"
         user_profile = self.query(sql, user_id)
         if user_profile:
             return user_profile[0]

@@ -33,7 +33,5 @@ def vip_view():
                 "user_id": user_id,
                 "shop_data":data,   # 商品信息
                 "username":name,  # 用户姓名
-
-
             }
         })
