@@ -8,13 +8,6 @@ class CarDao(BaseDao):
         pass
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
     CarDao().check_goods(1)
 
