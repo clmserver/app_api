@@ -15,16 +15,14 @@ blue = Blueprint('user_api', __name__)
 # 请求验证码
 @blue.route('/user/check_code/',methods=['GET'])
 def check_code():
-    r_data = request.get_json()
-    if r_data:
-        phone = r_data['phone']       #获取手机号
-        if phone:
-            res = eval(send_msg(phone))    #发送验证码
-            print(type(res))
-            if res['Code'] == 'OK':
-                return jsonify({'code':200,'msg':'验证码发送成功'})
-            else:
-                return jsonify({'code':207,'msg':'手机号错误请填写正确的手机号'})
+	phone = request.args.get('phone')       #获取手机号
+	if phone:
+		res = eval(send_msg(phone))    #发送验证码
+		print(type(res))
+		if res['Code'] == 'OK':
+			return jsonify({'code':200,'msg':'验证码发送成功'})
+		else:
+			return jsonify({'code':207,'msg':'手机号错误请填写正确的手机号'})
     return jsonify({'code':207,'msg':'请填写正确的手机号'})
 
 
@@ -203,9 +201,8 @@ def logout():
 # 切换到我的模块
 @blue.route('/user/',methods=['GET'])
 def user():
-    r_data = request.get_json()
-    if r_data:
-        token = r_data['token']
+	token = request.args.get('token')
+	if token:
         if check_token(token):
             user_id = get_token_user_id(token)
             print(user_id)
