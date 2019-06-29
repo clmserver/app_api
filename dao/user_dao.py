@@ -29,11 +29,7 @@ class UserDao(BaseDao):
 
     def get_profile(self, user_id):
         # 获取用户的详细信息
-        sql = "select * from users " \
-              "where user_id=%s"
-        user_profile = self.query(sql, user_id)
-        if user_profile:
-            return user_profile[0]
+        return super(UserDao, self).list(table_name='users',where='id',args=user_id)
 
     def set_userinfo(self,key,value,where,args):
         return super(UserDao, self).update('users',key,value,where,args)

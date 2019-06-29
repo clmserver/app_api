@@ -3,11 +3,11 @@ from pymysql.cursors import DictCursor
 
 
 DB_CONFIG = {
-    'host': 'localhost',
+    'host': '10.35.162.134',
     'port': 3306,
-    'user': 'mtadmin',
-    'password': 'mt9900',
-    'db': 'mt_api_db',
+    'user': 'root',
+    'password': '710043oooo',
+    'db': 'navmore',
     'charset': 'utf8'
 }
 
@@ -63,10 +63,40 @@ class BaseDao():
             result = c.fetchone()
             return result
 
+    # 获取指定的数据
+    def search_all(self, table_name, *fileds, where=None, args=None, page=1, page_size=20):
+        if not fileds:
+            fileds = '*'
+        if where:
+            sql = "select {} from {} where {}={} limit {},{}".format \
+                (','.join(*fileds), table_name, where, args, (page - 1) * page_size, page_size)
+        else:
+            sql = "select {} from {} limit {},{}".format \
+                (','.join(*fileds), table_name, (page - 1) * page_size, page_size)
+        print(sql)
+        with self.db as c:
+            c.execute(sql)
+            result = c.fetchall()
+            return result
+
+    # 获取随机的数据
+    def rand_all(self, table_name, *fileds, where=None, args=None, page=1, page_size=20):
+        if not fileds:
+            fileds = '*'
+        if where:
+            sql = "select {} from {} where {}={} order by rand() limit {},{}".format \
+                (','.join(*fileds), table_name, where, args, (page - 1) * page_size, page_size)
+        else:
+            sql = "select {} from {} order by rand() limit {},{}".format \
+                (','.join(*fileds), table_name, (page - 1) * page_size, page_size)
+        with self.db as c:
+            c.execute(sql)
+            result = c.fetchall()
+            return result
+
     # 更新数据
     def update(self,table_name,key,value,where=None,args=None):
         sql = "update {} set {}='{}' where {}='{}'".format(table_name,key,value,where,args)
-        print(sql)
         succuss = False
         with self.db as c:
             c.execute(sql)
@@ -82,6 +112,7 @@ class BaseDao():
             success = True
         return success
 
+    # 执行特定的sql语句
     def query(self, sql, *args):
         data = None
         with self.db as c:
