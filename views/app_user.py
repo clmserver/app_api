@@ -31,6 +31,7 @@ def user_regist():
     phone = request.form.get('phone')
     code = request.form.get('code')
     #判断接受的数据是否为空
+    print(phone)
     if all((phone,code)):
         res = check_sms(phone,code)
         if not res:
@@ -113,7 +114,7 @@ def find_password():
     if all((phone, code)):
         res = check_sms(phone, code)
         print(res)
-        if res:
+        if not res:
             # 随机生成密码保存到数据库
             pwd = GetPassword(10)
             u_password = make_password(pwd)

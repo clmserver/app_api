@@ -3,7 +3,19 @@ from dao import BaseDao
 
 class CarDao(BaseDao):
     """购物车"""
-    """获取查询购物车是否有商品"""
-    def (self):
+    """添加购物车"""
+    def add_cart(self, user_id, goods_id, shop_id):
+        pass
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    CarDao().check_goods(1)
 
 

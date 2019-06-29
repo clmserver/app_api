@@ -2,15 +2,22 @@ import pymysql
 from pymysql.cursors import DictCursor
 
 
+# DB_CONFIG = {
+#     'host': 'localhost',
+#     'port': 3306,
+#     'user': 'mtadmin',
+#     'password': 'mt9900',
+#     'db': 'mt_api_db',
+#     'charset': 'utf8'
+# }
 DB_CONFIG = {
-    'host': '121.199.63.71',
+    'host': 'localhost',
     'port': 3306,
-    'user': 'mtadmin',
-    'password': 'mt9900',
-    'db': 'mt_api_db',
+    'user': 'root',
+    'password': '710043oooo',
+    'db': 'navmore',
     'charset': 'utf8'
 }
-
 
 class DB:
     def __init__(self):
@@ -48,7 +55,7 @@ class BaseDao():
         with self.db as c:
             print(sql)
             c.execute(sql,args=values)
-            print(sql)
+
             success = True
         return success
 
@@ -64,16 +71,39 @@ class BaseDao():
             result = c.fetchone()
             return result
 
-    def (self,table_name,*fileds, where=None,args=None,page=1,page_size=20):
+    """获取指定的数据"""
+    def search_all(self, table_name, *fileds, where=None, args=None, page=1, page_size=20):
         if not fileds:
             fileds = '*'
-        sql = "select {} from {} where {}={} limit {},{}".format\
-            (','.join(*fileds),table_name,where,args,(page-1)*page_size,page_size)
+        if where:
+            sql = "select {} from {} where {}={} limit {},{}".format\
+                (','.join(*fileds), table_name, where, args, (page-1)*page_size, page_size)
+        else:
+            sql = "select {} from {} limit {},{}".format\
+                (','.join(*fileds), table_name, (page-1)*page_size, page_size)
         print(sql)
         with self.db as c:
             c.execute(sql)
-            result = c.fetchone()
+            result = c.fetchall()
             return result
+
+    """获取随机的数据"""
+
+    def rand_all(self, table_name, *fileds, where=None, args=None, page=1, page_size=20):
+        if not fileds:
+            fileds = '*'
+        if where:
+            sql = "select {} from {} where {}={} order by rand() limit {},{}".format \
+                (','.join(*fileds), table_name, where, args, (page - 1) * page_size, page_size)
+        else:
+            sql = "select {} from {} order by rand() limit {},{}".format \
+                (','.join(*fileds), table_name, (page - 1) * page_size, page_size)
+        print(sql)
+        with self.db as c:
+            c.execute(sql)
+            result = c.fetchall()
+            return result
+
     # 更新数据
     def update(self,table_name,key,value,where=None,args=None):
         sql = "update {} set {}='{}' where {}='{}'".format(table_name,key,value,where,args)
@@ -85,8 +115,11 @@ class BaseDao():
         return succuss
 
     # 删除数据
-    def delete(self, table_name,id):
-        sql = "delete from {} where id={}".format(table_name,id)
+    def delete(self, table_name,where=None, args=None):
+        if not where:
+            sql = "delete from {} where id = {}"
+        else:
+            sql = "delete from {} where {}='{}'".format(table_name, where, args)
         success = False
         with self.db as c:
             c.execute(sql)
@@ -95,8 +128,10 @@ class BaseDao():
 
     def query(self, sql, *args):
         data = None
+        sql = sql % args
+        print(sql)
         with self.db as c:
-            c.execute(sql, args=args)
+            c.execute(sql)
             data = c.fetchall()
             if data:
                 data = list(data)

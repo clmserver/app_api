@@ -22,7 +22,7 @@ def card_num():
                     "data": data,
                 })
     else:
-        return ('user_id为空')
+        return jsonify('user_id为空')
 
 
 @blue.route('/burse_balance/',methods=("GET",))
@@ -45,5 +45,5 @@ def burse_balance():
                 'msg':'恭喜您，您已成功充值会员!'
             })
     else:
-        return ("您的余额不足")
+        return jsonify("您的余额不足")
 

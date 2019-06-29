@@ -1,9 +1,6 @@
 from apps import app
-<<<<<<< HEAD
-from views import app_user, home_views, pay_vip
-=======
-from views import app_user, home_views
->>>>>>> origin/navmore
+from views import app_user, home_view, pay_vip, shop_view
+from views import app_user, home_view
 from flask_cors import CORS
 
 APP_CONFIG={
@@ -15,10 +12,8 @@ APP_CONFIG={
 if __name__ == '__main__':
     CORS().init_app(app)
     app.register_blueprint(app_user.blue)
-    app.register_blueprint(home_views.main_blue)
-<<<<<<< HEAD
+    app.register_blueprint(home_view.main_blue)
     app.register_blueprint(pay_vip.blue)
-=======
->>>>>>> origin/navmore
+    app.register_blueprint(shop_view.shop_blue)
 
     app.run(**APP_CONFIG)
