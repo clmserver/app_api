@@ -1,23 +1,24 @@
 import pymysql
 from pymysql.cursors import DictCursor
 
+# DB_CONFIG = {
+#     'host': 'localhost',
+#     'port': 3306,
+#     'user': 'mtadmin',
+#     'password': 'mt9900',
+#     'db': 'mt_api_db',
+#     'charset': 'utf8'
+# }
 
 DB_CONFIG = {
     'host': 'localhost',
     'port': 3306,
-    'user': 'mtadmin',
-    'password': 'mt9900',
-    'db': 'mt_api_db',
+    'user': 'root',
+    'password': '710043oooo',
+    'db': 'navmore',
     'charset': 'utf8'
 }
-# DB_CONFIG = {
-#     'host': 'localhost',
-#     'port': 3306,
-#     'user': 'root',
-#     'password': '710043oooo',
-#     'db': 'navmore',
-#     'charset': 'utf8'
-# }
+
 
 class DB:
     def __init__(self):
@@ -71,7 +72,9 @@ class BaseDao():
             result = c.fetchone()
             return result
 
+
     """获取指定的数据"""
+
     def search_all(self, table_name, *fileds, where=None, args=None, page=1, page_size=20):
         if not fileds:
             fileds = '*'
@@ -81,6 +84,7 @@ class BaseDao():
         else:
             sql = "select {} from {} limit {},{}".format\
                 (','.join(*fileds), table_name, (page-1)*page_size, page_size)
+
         print(sql)
         with self.db as c:
             c.execute(sql)
@@ -98,7 +102,7 @@ class BaseDao():
         else:
             sql = "select {} from {} order by rand() limit {},{}".format \
                 (','.join(*fileds), table_name, (page - 1) * page_size, page_size)
-        print(sql)
+
         with self.db as c:
             c.execute(sql)
             result = c.fetchall()
@@ -107,7 +111,6 @@ class BaseDao():
     # 更新数据
     def update(self,table_name,key,value,where=None,args=None):
         sql = "update {} set {}='{}' where {}='{}'".format(table_name,key,value,where,args)
-        print(sql)
         succuss = False
         with self.db as c:
             c.execute(sql)
@@ -126,6 +129,7 @@ class BaseDao():
             success = True
         return success
 
+    # 执行特定的sql语句
     def query(self, sql, *args):
         data = None
         sql = sql % args

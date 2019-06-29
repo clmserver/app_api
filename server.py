@@ -1,6 +1,6 @@
 from apps import app
-from views import app_user, home_view, pay_vip, shop_view
-from views import app_user, home_view
+
+from views import user_view, home_view, payvip_view, vip_view, shop_view
 from flask_cors import CORS
 
 APP_CONFIG={
@@ -11,9 +11,12 @@ APP_CONFIG={
 
 if __name__ == '__main__':
     CORS().init_app(app)
-    app.register_blueprint(app_user.blue)
+
+    app.register_blueprint(user_view.blue)
     app.register_blueprint(home_view.main_blue)
-    app.register_blueprint(pay_vip.blue)
+    app.register_blueprint(payvip_view.blue)
+    app.register_blueprint(vip_view.blue)
     app.register_blueprint(shop_view.shop_blue)
+
 
     app.run(**APP_CONFIG)
