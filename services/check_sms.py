@@ -1,11 +1,8 @@
 from libs import r
 
 def check_sms(u_phone, msg_code):
-    print(u_phone)
     res = None
     try:
-        print('xxxxxxxxxxxxxx')
-        print(r.keys())
         r_msg_code = r.get('MT' + u_phone).decode()
 
         if not r_msg_code:

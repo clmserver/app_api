@@ -1,6 +1,6 @@
 import uuid
 
-from flask import Blueprint, json, redirect, url_for
+from flask import Blueprint
 from flask import request, jsonify
 
 from libs.cache import save_token, check_token, get_token_user_id
@@ -190,10 +190,11 @@ def logout():
 @blue.route('/user/',methods=['GET'])
 def user():
     r_data = request.get_json()
-    token = r_data['token']
-    if check_token(token):
-        user_id = get_token_user_id(token)
-        print(user_id)
-        s_data = UserDao().get_profile(user_id)
-        return jsonify({'code':200,'msg':'OK','data':s_data})
+    if r_data:
+        token = r_data['token']
+        if check_token(token):
+            user_id = get_token_user_id(token)
+            print(user_id)
+            s_data = UserDao().get_profile(user_id)
+            return jsonify({'code':200,'msg':'OK','data':s_data})
     return jsonify({'code':207,'msg':'未登录，请前去登录'})
