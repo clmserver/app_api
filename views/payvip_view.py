@@ -6,11 +6,12 @@ from dao.user_dao import UserDao
 blue = Blueprint('bank_api', __name__)
 
 
+
 # 充值会员和余额扣费
 @blue.route('/card_num/', methods=('GET',))
 def card_num():
-    user_id = request.form.get('user_id')
-    vip_fee = request.form.get('vip_fee')
+    user_id = request.args.get('user_id')
+    vip_fee = request.args.get('vip_fee')
     #接收user_id和会员费
 
     #判断接受的数据是否为空
@@ -27,8 +28,8 @@ def card_num():
 
 @blue.route('/burse_balance/',methods=("GET",))
 def burse_balance():
-    user_id = request.form.get('user_id')
-    vip_fee = request.form.get('vip_fee')
+    user_id = request.args.get('user_id')
+    vip_fee = request.args.get('vip_fee')
     burse_balance = UserDao().get_burse(user_id)[0]['u_burse_balance']
     print(burse_balance)
     if burse_balance:

@@ -4,7 +4,7 @@ def check_sms(u_phone, msg_code):
     res = None
     try:
         r_msg_code = r.get('MT' + u_phone).decode()
-
+        print(r_msg_code,'xxxxxxxxxxxxxxxx')
         if not r_msg_code:
             res = {'code': 203, 'msg': '短信验证码已过期'}
         if r_msg_code != msg_code:

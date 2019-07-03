@@ -11,7 +11,7 @@ from pymysql.cursors import DictCursor
 # }
 
 DB_CONFIG = {
-    'host': 'localhost',
+    'host': '10.35.162.134',
     'port': 3306,
     'user': 'root',
     'password': '710043oooo',
@@ -56,7 +56,6 @@ class BaseDao():
         with self.db as c:
             print(sql)
             c.execute(sql,args=values)
-
             success = True
         return success
 

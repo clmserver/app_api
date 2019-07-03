@@ -13,7 +13,7 @@ blue = Blueprint('vip_api', __name__)
 @blue.route('/api/vip/', methods=('GET',))
 def vip_view():
     # 验证用户是否已登录
-    token = request.form.get('token', None)
+    token = request.args.get('token', None)
     if token is None:
         return jsonify({
             'code': 202,

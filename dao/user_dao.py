@@ -14,8 +14,8 @@ class UserDao(BaseDao):
     def get_pwd(self,where,args):       #获取用户的密码
         user = super(UserDao, self).list("users", ("u_password",), where=where,args=args)
         if user:
-            print(user['u_password'])
             return user['u_password']
+
 
     def check_phone(self, u_tel):
         # 检查电话是否已存在

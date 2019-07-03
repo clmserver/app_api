@@ -13,13 +13,12 @@ class MainDao(BaseDao):
         return super(MainDao, self).search_all("main_small_img", page_size=10)
     """模糊查询商家"""
     def search(self, args):
-        sql = "select * from shops where shop_name like '%%%s%%' or shop_s_name like '%%%s%%' "\
-               "or shop_full_name like '%%%s%%' limit 0,8"
-        return super(MainDao, self).query(sql, args, args, args)
+        sql = "select * from shops where shop_name like '%%%s%%' limit 0,8"
+        return super(MainDao, self).query(sql,args)
 
     """返回优选商家"""
-    def youxuan(self):
-        return super(MainDao, self).rand_all("shops", page_size=4)
+    def youxuan_shops(self):
+        return super(MainDao, self).rand_all("shops",page_size=4)
     """精选商品"""
     def youxuan_goods(self):
         return super(MainDao, self).rand_all("goods", page_size=2)
@@ -29,8 +28,9 @@ class MainDao(BaseDao):
         return super(MainDao, self).rand_all("shops", page_size=10)
 
     """附近的商家"""
-    def shop_nearby(self):
-        pass
+    def shop_nearby(self,*args):
+        sql = "SELECT shops.*, distance(%s, %s, latitude, longitude)  AS dis FROM shops ORDER BY dis ASC "
+        return super(MainDao, self).query(sql,*args)
 
     """获取全部分类"""
     def all_type(self):

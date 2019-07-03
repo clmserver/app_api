@@ -9,7 +9,7 @@ from libs import r
 
 def send_msg(phone):
     code = ''.join([str(random.randint(0,9)) for _ in range(6)])
-    r.setex("MT" + phone,code,120)# 保存到redis缓存
+    r.setex("MT" + phone,120,code)# 保存到redis缓存
     return send_sms_code(phone, code)
 
 
