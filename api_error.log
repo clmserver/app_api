@@ -48,3 +48,6 @@
 [2019-07-04 17:29:13 at 79 line of user_view.py ] 手机号或验证码错误
 [2019-07-04 17:29:23 at 79 line of user_view.py ] 手机号或验证码错误
 [2019-07-04 17:30:35 at 79 line of user_view.py ] 手机号或验证码错误
+[2019-07-04 19:44:44 at 72 line of home_view.py ] 参数错误'lat'
+[2019-07-04 19:45:30 at 72 line of home_view.py ] 参数错误'NoneType' object is not subscriptable
+[2019-07-04 19:51:16 at 75 line of home_view.py ] 请求方式错误

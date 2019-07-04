@@ -87,7 +87,7 @@ def get_shop_storeinfo():
     })
 
 # 点击食品
-@shop_blue.route("/api/good/")
+@shop_blue.route("/api/good/",methods=['GET',])
 def get_good_info():
     good_id = request.args.get('good_id')
     data = dao.get_good(good_id)
