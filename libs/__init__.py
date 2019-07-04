@@ -1,13 +1,13 @@
 from redis import Redis
 
-# r = Redis(host='localhost',
-#            port=6371, db=3)
-# r2 = Redis(host='localhost',
-#            port=6371, db=1)
 r = Redis(host='localhost',
-           port=6379, db=3)
+           port=6371, db=3)
 r2 = Redis(host='localhost',
-           port=6379, db=1)
+           port=6371, db=1)
+# r = Redis(host='localhost',
+#            port=6379, db=3)
+# r2 = Redis(host='localhost',
+#            port=6379, db=1)
 
 
 
