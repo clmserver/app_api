@@ -11,6 +11,7 @@ from pymysql.cursors import DictCursor
 # }
 from logger import api_logger
 
+
 DB_CONFIG = {
     'host': '10.35.162.134',
     'port': 3306,
@@ -40,7 +41,7 @@ class DB:
         else:
             self.conn.rollback()
 
-        return True  # 异常不会继续向外抛出
+        return False  # 异常不会继续向外抛出
 
 
 class BaseDao():
@@ -134,7 +135,6 @@ class BaseDao():
     def query(self, sql, *args):
         data = None
         sql = sql % args
-        print(sql)
         with self.db as c:
             c.execute(sql)
             data = c.fetchall()

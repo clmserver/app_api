@@ -11,7 +11,7 @@ class ShopDao(BaseDao):
     """根据id获取店铺信息"""
     def get_shop(self, shop_id):
         return super(ShopDao, self).list("shops", where="id", args=shop_id, page=1,
-                                               page_size=10)
+                                               page_size=20)
     """根据id获取食品信息"""
     def get_good(self, good_id):
         return super(ShopDao, self).list("goods", where="id", args=good_id, page=1,
