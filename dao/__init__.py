@@ -1,25 +1,25 @@
 import pymysql
 from pymysql.cursors import DictCursor
 
-DB_CONFIG = {
-    'host': 'localhost',
-    'port': 3306,
-    'user': 'mtadmin',
-    'password': 'mt9900',
-    'db': 'mt_api_db',
-    'charset': 'utf8'
-}
+# DB_CONFIG = {
+#     'host': 'localhost',
+#     'port': 3306,
+#     'user': 'mtadmin',
+#     'password': 'mt9900',
+#     'db': 'mt_api_db',
+#     'charset': 'utf8'
+# }
 from logger import api_logger
 
 
-# DB_CONFIG = {
-#     'host': '10.35.162.134',
-#     'port': 3306,
-#     'user': 'root',
-#     'password': '710043oooo',
-#     'db': 'navmore',
-#     'charset': 'utf8'
-# }
+DB_CONFIG = {
+    'host': '10.35.162.134',
+    'port': 3306,
+    'user': 'root',
+    'password': '710043oooo',
+    'db': 'navmore',
+    'charset': 'utf8'
+}
 
 
 class DB:

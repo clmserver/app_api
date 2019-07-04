@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, logging
 
-from apps import tasks
 from dao.main_dao import MainDao
 from dao.shop_dao import ShopDao
 from libs.dsq import wheels
