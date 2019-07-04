@@ -9,6 +9,7 @@ from pymysql.cursors import DictCursor
 #     'db': 'mt_api_db',
 #     'charset': 'utf8'
 # }
+from logger import api_logger
 
 DB_CONFIG = {
     'host': '10.35.162.134',
@@ -23,6 +24,7 @@ DB_CONFIG = {
 class DB:
     def __init__(self):
         self.conn = pymysql.Connect(**DB_CONFIG)
+        # api_logger.info("上下文",self.conn)
         # 如果上传的code中包含更新sql语句，如何自动创建(在服务器端)
 
     def __enter__(self):
@@ -57,6 +59,7 @@ class BaseDao():
             print(sql)
             c.execute(sql,args=values)
             success = True
+        print(success)
         return success
 
     # 查询数据
@@ -65,7 +68,6 @@ class BaseDao():
             fileds = '*'
         sql = "select {} from {} where {}={} limit {},{}".format\
             (','.join(*fileds),table_name,where,args,(page-1)*page_size,page_size)
-        print(sql)
         with self.db as c:
             c.execute(sql)
             result = c.fetchone()

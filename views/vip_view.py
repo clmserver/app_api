@@ -21,7 +21,6 @@ def vip_view():
         })
     if cache.check_token(token):
         user_id = cache.get_token_user_id(token)
-        print(user_id)
         # 显示vip界面
         dt = VipDao()
         data = dt.get_shop()

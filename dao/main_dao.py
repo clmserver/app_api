@@ -43,6 +43,19 @@ class MainDao(BaseDao):
     def all_small(self, id):
         return super(MainDao, self).search_all("shop_small_type" , where = "shop_small_type_shoptype_id" ,args = id)
 
+    """根据店铺id随机选取一张食品图片"""
+    def get_goodpic(self,id):
+        return super(MainDao, self).rand_all("goods", where='g_shop_id',args=id,page_size=1)[0]['goods_picture']
+
+    """根据店铺id选取店铺名称"""
+    def get_shopname(self,id):
+        return super(MainDao, self).rand_all("shops", where='id',args=id,page_size=1)[0]['shop_name']
+
+    def get_shop_head_pic(self,id):
+        return super(MainDao,self).rand_all("shops",where="id", args=id,page_size=1)[0]['img_url']
+
+
+
 
 
 

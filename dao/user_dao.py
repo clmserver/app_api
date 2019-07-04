@@ -48,7 +48,6 @@ class UserDao(BaseDao):
         # 获取我的余额信息
         sql_user_id = "select u_burse_balance from users where id=%s"
         u_burse_balance = self.query(sql_user_id,user_id)
-        print(sql_user_id)
         if u_burse_balance:
             return u_burse_balance
 

@@ -13,11 +13,11 @@ handler1 = logging.StreamHandler()
 handler1.setLevel(logging.DEBUG)
 handler1.setFormatter(formatter)
 
-handler2 = TimedRotatingFileHandler('api-info.log', interval=2, encoding='utf-8')
+handler2 = TimedRotatingFileHandler('api_info.log', interval=2, encoding='utf8')
 handler2.setLevel(logging.INFO)
 handler2.setFormatter(formatter)
 
-handler3 = TimedRotatingFileHandler('api-error.log', interval=4, encoding='utf-8')
+handler3 = TimedRotatingFileHandler('api_error.log', interval=4, encoding='utf8')
 handler3.setLevel(logging.ERROR)
 handler3.setFormatter(formatter)
 

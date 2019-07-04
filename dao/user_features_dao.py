@@ -39,11 +39,42 @@ class User_Featuare_Dao(BaseDao):
 
     # 获取商铺评论
     def shop_pl(self,v_shop_id):
-        sql = 'select * from valuetion where v_shop_id = %s'
-        user_profile = self.query(sql, v_shop_id)
-        return user_profile
+        yt_gp_sql = 'select *  from valuetion where is_url=1 and good_or_bad=0 and v_shop_id=%s;'
+        wt_gp_sql = 'select *  from valuetion where is_url=0 and good_or_bad=0 and v_shop_id=%s;'
+        yt_bp_sql = 'select *  from valuetion where is_url=1 and good_or_bad=1 and v_shop_id=%s;'
+        wt_bp_sql = 'select *  from valuetion where is_url=0 and good_or_bad=1 and v_shop_id=%s;'
+        good_is_num = self.query(yt_gp_sql, v_shop_id)
+        good_no_num = self.query(wt_gp_sql, v_shop_id)
+        bad_is_num = self.query(yt_bp_sql, v_shop_id)
+        bad_no_num = self.query(wt_bp_sql, v_shop_id)
+        data = {
+            "goodp_num":{
+                "good_is_num":good_is_num,
+                "good_no_num":good_no_num,
+            },
+            "badp_num":{
+                "bad_is_num":bad_is_num,
+                "bad_no_num":bad_no_num
 
+            }
+        }
+        return data
+
+
+    # 用户余额
+    def user_balance(self,user_id):
+        sql = "select u_burse_balance from users where id=%s"
+        burse_balance = self.query(sql, user_id)
+        #num = burse_balance[0].get('u_burse_balance')
+        return burse_balance
+    # 用户所有银行卡
+    def user_cards(self,user_id):
+        sql = "select count(card_num) as card_num from bank_card where card_user_id=%s"
+        burse_balance = self.query(sql, user_id)
+
+        print(burse_balance)
+        return burse_balance
 
 if __name__ == '__main__':
-    data = User_Featuare_Dao().user_comment(3)
+    data = User_Featuare_Dao().shop_pl(3)
     print(data)
