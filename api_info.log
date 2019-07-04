@@ -331,3 +331,13 @@
 [2019-07-04 19:49:01 at 94 line of shop_view.py ] 商品详细信息查询成功
 [2019-07-04 19:49:08 at 94 line of shop_view.py ] 商品详细信息查询成功
 [2019-07-04 19:51:16 at 75 line of home_view.py ] 请求方式错误
+[2019-07-04 20:00:29 at 69 line of home_view.py ] 主页面显示成功
+[2019-07-04 20:00:29 at 106 line of home_view.py ] 获取到全部分类
+[2019-07-04 20:00:30 at 69 line of home_view.py ] 主页面显示成功
+[2019-07-04 20:00:48 at 27 line of user_view.py ] 验证码已发送
+[2019-07-04 20:00:48 at 30 line of user_view.py ] 手机号错误
+[2019-07-04 20:01:00 at 53 line of payvip_view.py ] 余额不足
+[2019-07-04 20:01:00 at 24 line of payvip_view.py ] 此用户无银行卡
+[2019-07-04 20:01:00 at 29 line of payvip_view.py ] 显示所有银行卡
+[2019-07-04 20:01:00 at 53 line of payvip_view.py ] 余额不足
+[2019-07-04 20:02:42 at 69 line of home_view.py ] 主页面显示成功

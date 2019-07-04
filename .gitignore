@@ -3,3 +3,5 @@ venv
 __pycache__
 *.log.*
 env
+api_error.log
+api_info.log

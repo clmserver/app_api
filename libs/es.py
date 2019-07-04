@@ -8,7 +8,7 @@ from pymysql.cursors import DictCursor
 
 class ESearch():
     def __init__(self, index):
-        self.host = '121.199.63.71'
+        self.host = 'localhost'
         self.port = '9202'
         self.index = index
 
@@ -59,11 +59,11 @@ class ESearch():
 
 
 def init_index():
-    db = pymysql.Connect(host="10.35.162.134",
+    db = pymysql.Connect(host="localhost",
                          port=3306,
-                         user='root',
-                         password='710043oooo',
-                         db='navmore',
+                         user='mtadmin',
+                         password='mt9900',
+                         db='mt_api_db',
                          charset='utf8')
     with db.cursor(cursor=DictCursor) as c:
         c.execute('select * from shops')

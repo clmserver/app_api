@@ -80,6 +80,7 @@ def user_upaddress():
     address = r_data['address']
     linkman = r_data['linkman']
     num = r_data['num']
+    gender = r_data['gender']
     user_id = get_token_user_id(token)
     # user_id = r_data['user_id']     # 传递user_id
     id = r_data['id']     # 传递id
@@ -88,6 +89,7 @@ def user_upaddress():
         'addr_housenum':num,
         'addr_linkman':linkman,
         'addr_tel':phone,
+        "gender":gender
     }
     User_Featuare_Dao().up_address(address,num,linkman,phone,user_id,id)
     api_logger.info("更改地址成功")
