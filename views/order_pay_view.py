@@ -25,7 +25,7 @@ def pay_go():
     data = OrderDao().query(sql, user_id, shop_id)
     if not data:
         return jsonify({
-            "code": 300,
+            "code": 207,
             "msg": "当前购物车为空"
         })
     sum = 0
@@ -70,7 +70,7 @@ def is_ok():
         total = float(r.get(order_num).decode())
         if u_burse < total:
             return jsonify({
-                "code": 302,
+                "code": 207,
                 "msg": "您的余额不足，请先充值"
             })
         dic = {
@@ -92,6 +92,6 @@ def is_ok():
         })
     else:
         return jsonify({
-            "code": 300,
+            "code": 207,
             "msg": "该订单已失效"
         })

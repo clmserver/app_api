@@ -34,7 +34,6 @@ def cart_all(ssid):
     if not key_value:
         ls = ssid.split("-")
         data = CartDao().show_cart(ls[0], ls[1])
-        print(data)
         if data:
             for good in data:
                 r2.hset(good.get("cart_goods_id"), good.get("cart_good_num"))
@@ -52,7 +51,6 @@ def save_cart(user_id):
         for key in data:
             key = key.decode()
             datas = r2.hgetall(key)
-            print(datas)
             for i, j in datas.items():
                 cart_dao.add_cart(key, int(i.decode()), int(j.decode()))
 

@@ -25,12 +25,13 @@ def check_code():
         res = eval(send_msg(phone))  # 发送验证码
         if res['Code'] == 'OK':
             api_logger.info("验证码已发送")
-            return jsonify({'code': 200, 'msg': '验证码发送成功'})
+            code = r.get('MT'+phone).decode()
+            return jsonify({'code': 200, 'msg': '验证码发送成功','data':code})
         else:
             api_logger.warning("手机号错误")
-            return jsonify({'code': 207, 'msg': '手机号错误请填写正确的手机号'})
+            return jsonify({'code': 207, 'msg': '2手机号错误请填写正确的手机号'})
     api_logger.warning("手机号错误")
-    return jsonify({'code': 207, 'msg': '请填写正确的手机号'})
+    return jsonify({'code': 207, 'msg': '1请填写正确的手机号'})
 
 # 验证码登录
 @blue.route('/user/code_login/', methods=['POST',])
@@ -84,7 +85,7 @@ def user_regist():
 
 
 # 密码登录
-@blue.route('/user/pwd_login/',methods=['POST','GET'])
+@blue.route('/user/pwd_login/',methods=['POST',])
 def code_login():
     r_data = request.get_json()
     if r_data:
@@ -107,7 +108,7 @@ def code_login():
                         'data': data
                     })
     return jsonify({
-        "code": 300,
+        "code": 207,
         "msg": "手机号或者密码错误,请重新输入"
     })
 
@@ -122,7 +123,8 @@ def forget_password():
             if not UserDao().check_phone(phone):
                 res = eval(send_msg(phone).decode())    #发送验证码
                 if res['Code'] == 'OK':
-                    return jsonify({'code':200,'msg':'验证码发送成功'})
+                    code = r.get('MT'+phone)
+                    return jsonify({'code':200,'msg':'验证码发送成功','data':code})
                 else:
                     return jsonify({'code':207,'msg':'手机号错误请填写正确的手机号'})
             else:
@@ -146,7 +148,7 @@ def find_password():
                 pwd = GetPassword(10)
                 u_password = make_password(pwd)
                 if UserDao().set_userinfo('u_password',u_password,'u_tel',phone):
-                    return jsonify({'code':200,'msg':'验证成功，初始化密码为：'+pwd})
+                    return jsonify({'code':200,'msg':'验证成功，初始化密码为：'+pwd ,'data':pwd})
             else:
                 return jsonify({'code':207,'msg':'验证码输入错误、请重新输入!'})
         else:
@@ -178,12 +180,12 @@ def upload_head():
             })
         else:
             return jsonify({
-                'code': 201,
+                'code': 207,
                 'msg': '图片只支持png和jpeg'
             })
     else:
         return jsonify({
-            'code':100,
+            'code':207,
             'msg':'POST参数必须有img和token'
         })
 

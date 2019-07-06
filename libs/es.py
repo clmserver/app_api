@@ -59,18 +59,18 @@ class ESearch():
 
 
 def init_index():
-    # db = pymysql.Connect(host="localhost",
-    #                      port=3306,
-    #                      user='mtadmin',
-    #                      password='mt9900',
-    #                      db='mt_api_db',
-    #                      charset='utf8')
-    db = pymysql.Connect(host="10.35.162.134",
+    db = pymysql.Connect(host="localhost",
                          port=3306,
-                         user='root',
-                         password='710043',
-                         db='navmore',
+                         user='mtadmin',
+                         password='mt9900',
+                         db='mt_api_db',
                          charset='utf8')
+    # db = pymysql.Connect(host="10.35.162.134",
+    #                      port=3306,
+    #                      user='root',
+    #                      password='710043',
+    #                      db='navmore',
+    #                      charset='utf8')
     with db.cursor(cursor=DictCursor) as c:
         c.execute('select * from shops')
         es_ = ESearch('mtindex')

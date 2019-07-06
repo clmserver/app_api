@@ -73,7 +73,7 @@ def main_view():
     else:
         api_logger.error("请求方式错误")
         return jsonify({
-            "code": 203,
+            "code": 207,
             "msg": "请求参数错误"
         })
 

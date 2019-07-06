@@ -5,7 +5,6 @@ from dao import BaseDao
 class OrderDao(BaseDao):
     def search_all(self, *args):
         sql = "select * from carts where cart_good_select = 1 and cart_user_id = %s  and cart_shop_id = %s"
-        print(sql)
         data = super(OrderDao, self).query(sql, *args)
         return data
 

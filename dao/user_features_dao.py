@@ -21,10 +21,13 @@ class User_Featuare_Dao(BaseDao):
 
     # 修改地址
 
-    def up_address(self,address,addr_housenum,addr_linkman,addr_tel,user_id,id):
-        sql = "UPDATE user_address set address=%s ,addr_housenum=%s ,addr_linkman=%s ,addr_tel=%s where user_id=%s and id=%s"
-        updata_address = self.query(sql,address,addr_housenum,addr_linkman,addr_tel,user_id,id)
-
+    def up_address(self, **data):
+        sql = "UPDATE user_address set address='%(address)s' ,bottom='%(bottom)s' ,name='%(name)s' ,phone=%(phone)s,sex='%(sex)s' ,tag='%(tag)s',user_id=%(user_id)s where id=%(id)s " % (
+            data)
+        print(sql)
+        updata_address = self.query(sql)
+        print(updata_address)
+        return updata_address
 
     # 删除地址
     def del_address(self, id,user_id):
@@ -71,9 +74,19 @@ class User_Featuare_Dao(BaseDao):
     def user_cards(self,user_id):
         sql = "select count(card_num) as card_num from bank_card where card_user_id=%s"
         burse_balance = self.query(sql, user_id)
-
-        print(burse_balance)
         return burse_balance
+
+    # 店铺中满减的活动
+    def discount2_des(self):
+        sql = "select info from discounts2 where type_name='减'"
+        discounts2 = self.query(sql)
+        return discounts2
+
+    def user_complaint(self,**values):
+        return super(User_Featuare_Dao, self).save('complaint', **values)
+
+    def user_suggest(self,**values):
+        return super(User_Featuare_Dao, self).save('suggest', **values)
 
 if __name__ == '__main__':
     data = User_Featuare_Dao().shop_pl(3)

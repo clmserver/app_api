@@ -27,18 +27,18 @@ def update_cart():
                 })
             else:
                 return jsonify({
-                    "code": 302,
+                    "code": 207,
                     "msg": "缺少参数"
                 })
         else:
             return jsonify({
-                "code": 301,
+                "code": 207,
                 "msg": "请登陆在后访问"
             })
 
     else:
         return jsonify({
-            "code": 300,
+            "code": 207,
             "msg": "该方法需要POST请求"
         })
 
@@ -52,14 +52,14 @@ def show_cart():
     token = data.get("token")
     if token:
         return jsonify({
-            "code": 301,
+            "code": 207,
             "msg": "当前用户已过期"
         })
     shop_id = data.get("shop_id")
     user_id = data.get("user_id")
     if not all((bool(shop_id), bool(user_id))):
         return jsonify({
-            "code": 301,
+            "code": 207,
             "msg": "缺少相关参数"
         })
     good_data = cart_all(str(user_id) + "-" + str(shop_id))
@@ -86,7 +86,7 @@ def show_cart():
         })
     else:
         return jsonify({
-            "code": 205,
+            "code": 207,
             "msg": "当前购物车为空"
         })
 
@@ -116,17 +116,17 @@ def go_buy():
                 })
             else:
                 return jsonify({
-                    "code": 201,
+                    "code": 380,
                     "msg": "没有相关数据"
                 })
             # return show_cart()
         return jsonify({
-                "code": 303,
+                "code": 207,
                 "msg": "没有找到相关参数"
             })
     else:
         return jsonify({
-            "code": 302,
+            "code": 207,
             "msg": "请求参数错误"
         })
 
@@ -147,18 +147,18 @@ def order_view():
                 })
             else:
                 return jsonify({
-                    "code": 300,
+                    "code": 207,
                     "msg": "当前购物车为空"
                 })
 
         else:
             return jsonify({
-                "code": 302,
+                "code": 207,
                 "msg": "当前用户没有登录"
             })
     else:
         return jsonify({
-            "code": 301,
+            "code": 207,
             "msg": "请求方法错误，不支持post请求"
         })
 

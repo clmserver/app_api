@@ -56,6 +56,12 @@ class UserDao(BaseDao):
         sql_burse = "update users set u_burse_balance=%s where id=%s"
         self.query(sql_burse,burse_balance,user_id)
 
+    def is_vip(self,user_id):
+        sql_vip = "select * from users where id=%s"
+        i_vip = self.query(sql_vip,user_id)
+        if i_vip:
+            return i_vip[0]['is_vip']
+
 
 if __name__ == '__main__':
     dao = UserDao()

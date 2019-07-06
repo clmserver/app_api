@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
 # @Time : 2019/7/2 10:08
+import datetime
 
 from flask import Blueprint
 from flask import request, jsonify
@@ -29,10 +30,12 @@ def user_add():
         # user_id = r_data['user_id
         data = {
             'address':address,# 地址
-            'addr_housenum':num,   # 门牌号
-            'addr_linkman':linkman,  # 联系人
-            'addr_tel' : phone,   # 手机
+            'bottom':num,   # 门牌号
+            'name':linkman,  # 联系人
+            'phone' : phone,   # 手机
             'user_id':user_id,
+            'sex':sex,
+            'tag':tag
 
         }
         User_Featuare_Dao().saves(**data)
@@ -54,7 +57,7 @@ def user_address():
     if token is None:
         api_logger.warning("未登录")
         return jsonify({
-            'code': 202,
+            'code': 207,
             'msg': '未登录,请登录'
         })
     if check_token(token):
@@ -68,31 +71,30 @@ def user_address():
             'data':data,
         })
     api_logger.warning("未查找到token")
-    return jsonify({'code':1111})
+    return jsonify({'code':303})
 
 
 # 修改地址
-@blue.route('/user/address/up_address/',methods=['GET'])
+@blue.route('/user/address/up_address/',methods=['GET','POST'])
 def user_upaddress():
     token = request.args.get('token', None)
     r_data = request.get_json()
-    phone = r_data['phone']
-    address = r_data['address']
-    linkman = r_data['linkman']
-    num = r_data['num']
-    gender = r_data['gender']
+    print(r_data)
     user_id = get_token_user_id(token)
-    # user_id = r_data['user_id']     # 传递user_id
-    id = r_data['id']     # 传递id
     data = {
-        'address':address,
-        'addr_housenum':num,
-        'addr_linkman':linkman,
-        'addr_tel':phone,
-        "gender":gender
+        "address": r_data['address'],
+        "phone": r_data['phone'],
+        "name":r_data['name'],
+        "bottom":r_data['bottom'],
+        "sex":r_data['sex'],
+        "tag":r_data['tag'],
+        "user_id":user_id,
+        "id":r_data['id']
+
     }
-    User_Featuare_Dao().up_address(address,num,linkman,phone,user_id,id)
-    api_logger.info("更改地址成功")
+
+    User_Featuare_Dao().up_address(**data)
+
     return jsonify({
         'code': 200,
         'user_id':user_id,
@@ -101,12 +103,14 @@ def user_upaddress():
     })
 
 
+
 # 删除我的地址
-@blue.route('/user/address/del/',methods=['GET'])
+@blue.route('/user/address/del/',methods=['GET',])
 def del_address():
     token = request.args.get('token', None)
-    r_data = request.get_json()
-    sid = r_data['id']
+    # r_data = request.get_data()
+    # print(r_data)
+    sid = request.args.get('id')
     user_id = get_token_user_id(token)
     # user_id = r_data['user_id']
     User_Featuare_Dao().del_address(sid,user_id)
@@ -123,7 +127,7 @@ def user_comment():
     if token is None:
         api_logger.warning("未登录")
         return jsonify({
-            'code': 202,
+            'code': 207,
             'msg': '未登录,请登录'
         })
     if check_token(token):
@@ -171,3 +175,34 @@ def user_hurse():
             "code":303,
             "msg":"token验证失败"
         })
+
+
+# 投诉商家
+@blue.route('/user/complaint/',methods=['GET'])
+def user_complaint():
+    r_data = request.get_json()
+    data = {
+        'shop_id': r_data['shop_id'],
+        'com_message': r_data['com_message'],
+        'com_time': datetime.datetime.now(),
+    }
+    data = User_Featuare_Dao().user_complaint(**data)
+    return jsonify({
+        "code": 200,
+        "data": data
+    })
+
+# 建议平台
+@blue.route('/user/suggest/',methods=['GET'])
+def user_suggest():
+    r_data = request.get_json()
+    data = {
+        's_message': r_data['s_message'],
+        's_phone': r_data['s_phone'],
+        's_time': datetime.datetime.now(),
+    }
+    card_num = User_Featuare_Dao().user_suggest(**data)
+    return jsonify({
+        "code":200,
+        "data":data
+    })

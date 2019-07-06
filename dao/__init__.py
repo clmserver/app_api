@@ -1,25 +1,25 @@
 import pymysql
 from pymysql.cursors import DictCursor
 
-# DB_CONFIG = {
-#     'host': 'localhost',
-#     'port': 3306,
-#     'user': 'mtadmin',
-#     'password': 'mt9900',
-#     'db': 'mt_api_db',
-#     'charset': 'utf8'
-# }
+DB_CONFIG = {
+    'host': 'localhost',
+    'port': 3306,
+    'user': 'mtadmin',
+    'password': 'mt9900',
+    'db': 'mt_api_db',
+    'charset': 'utf8'
+}
 from logger import api_logger
 
 
-DB_CONFIG = {
-    'host': '10.35.162.134',
-    'port': 3306,
-    'user': 'root',
-    'password': '710043oooo',
-    'db': 'navmore',
-    'charset': 'utf8'
-}
+# DB_CONFIG = {
+#     'host': '10.35.162.134',
+#     'port': 3306,
+#     'user': 'root',
+#     'password': '710043oooo',
+#     'db': 'navmore',
+#     'charset': 'utf8'
+# }
 
 
 class DB:
@@ -57,10 +57,8 @@ class BaseDao():
                )
         success = False
         with self.db as c:
-            print(sql)
             c.execute(sql,args=values)
             success = True
-        print(success)
         return success
 
     # 查询数据
@@ -87,7 +85,6 @@ class BaseDao():
             sql = "select {} from {} limit {},{}".format\
                 (','.join(*fileds), table_name, (page-1)*page_size, page_size)
 
-        print(sql)
         with self.db as c:
             c.execute(sql)
             result = c.fetchall()

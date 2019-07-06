@@ -23,7 +23,7 @@ def get_shop_type():
             })
     api_logger.error("请求参数错误")
     return jsonify({
-        "code": 300,
+        "code": 207,
         "msg": "请求参数错误",
     })
 

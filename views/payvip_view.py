@@ -9,6 +9,24 @@ blue = Blueprint('bank_api', __name__)
 
 
 
+
+@blue.route('/api/add_card/', methods=('POST',))
+def add_card():
+    token = request.args.get('token',None)
+    if token is None:
+        return jsonify({
+            'code': 202,
+            'msg': '未登录,请登录'
+        })
+    data = request.get_json()
+    cardnum = data.get('cardnum')
+    pass
+
+@blue.route('/api/del_card/',methods=('POST',))
+def del_card():
+
+    pass
+
 # 充值会员和余额扣费
 @blue.route('/api/card_num/', methods=('GET',))
 # 用户的银行卡
@@ -23,7 +41,7 @@ def card_num():
         if not data:
             api_logger.info("此用户无银行卡")
             return jsonify({
-                "code":300,
+                "code":207,
                 "msg":"你还未添加银行卡，请添加银行卡"
             })
         api_logger.info("显示所有银行卡")
@@ -35,7 +53,7 @@ def card_num():
     else:
         api_logger.info("user_id为空")
         return jsonify({"msg":'查无此用户',
-                        "code":300})
+                        "code":207})
 
 @blue.route('/api/burse_balance/',methods=("GET",))
 # 用户余额
@@ -52,7 +70,7 @@ def burse_balance():
             if int(vip_fee) > int(burse_balance):
                 api_logger.warning("余额不足")
                 return jsonify({
-                    "code":301,
+                    "code":207,
                     'msg':'您的余额不足!'
                 })
             else:
